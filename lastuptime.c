@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define BUF_SIZE 1024
-#define END_CHAR ' '
+#define END_CHAR 'T'
 #define PARTIAL_GUARD 64
 #define FILENAME "/var/log/pacman.log"
 #define SEARCH_STRING "full system upgrade"
