@@ -64,7 +64,6 @@ void lastUpgradeString(char *result, FILE *log, const char *update_command) {
       fgets(line, BUF_SIZE, log);
       if (strstr(line, update_command)) {
         strncpy(result, line, BUF_SIZE);
-        printf("%ld\n", ftell(log));
       }
     }
   }
