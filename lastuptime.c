@@ -56,10 +56,10 @@ void lastUpgradeString(char *result, FILE *log, const char *update_command) {
   /* Increment through file in 20% chunks, stop if 'update_command' is found */
   for (i = 0.6; result[0] == '\0' || i > 0.0; i -= 0.2) {
     fseek(log, floor(size * i), SEEK_SET);
-    unsigned int pos = ftell(log) + floor(size * 0.2);
+    unsigned int pos = ftell(log);
 
     /* Stop search if file position reaches beginning of last file position */
-    while ((ftell(log) <= pos + PARTIAL_GUARD)) {
+    while ((ftell(log) < pos + PARTIAL_GUARD)) {
       fgets(line, BUF_SIZE, log);
       if (strstr(line, update_command)) {
         strncpy(result, line, BUF_SIZE);
