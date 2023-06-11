@@ -57,7 +57,7 @@ void lastUpgradeString(char *result, FILE *log, const char *update_command) {
     if (i == 0.0)
       break;
     fseek(log, (long)floor(size * i), SEEK_SET);
-    long pos = size * (int)ceil((i + 0.2));
+    long pos = (long)ceil(size * (i + 0.2));
 
     /* Stop search if file position reaches beginning of last file position */
     while (ftell(log) < pos) {
