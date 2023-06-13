@@ -1,6 +1,5 @@
 #include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #define BUF_SIZE 1024
@@ -60,7 +59,7 @@ void lastUpgradeString(char *result, FILE *log, const char *update_command) {
     long pos = (long)ceil(size * (i + 0.2));
 
     /* Stop search if file position reaches beginning of last file position */
-    while (ftell(log) < pos) {
+    while (ftell(log) < pos + strlen(update_command)) {
       fgets(line, BUF_SIZE, log);
       if (strstr(line, update_command)) {
         strncpy(result, line, BUF_SIZE);
