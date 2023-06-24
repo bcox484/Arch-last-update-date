@@ -47,26 +47,29 @@ void findStr(char *line, char *result, const char *upgrade_string) {
 void lastUpgradeString(char *result, FILE *log, const char *upgrade_string) {
   char line[BUF_SIZE] = "";
   long size = 0;
+  long previous_pos = 0;
 
   /* Find total size of file */
   fseek(log, 0, SEEK_END);
   size = ftell(log);
 
-  /* Increment through first 20% of log file */
-  float i = 0.8;
-  fseek(log, (long)floor(size * i), SEEK_SET);
-  while (fgets(line, BUF_SIZE, log) != NULL)
-    findStr(line, result, upgrade_string);
+  previous_pos = size;
 
-  /* Go through file in 20% chunks, stop if 'update_command' is found */
-  for (i = 0.6; result[0] == '\0' && i >= 0.0; i -= 0.2) {
-    fseek(log, (long)floor(size * i), SEEK_SET);
-    long previous_pos = (long)ceil(size * (i + 0.2));
+  /* Go through file in 10% chunks, stop if 'update_command' is found */
+  for (float i = 0.9; result[0] == '\0' && i >= 0.0; i -= 0.1) {
+    long current_pos = 0;
+    if (i > 1.0) {
+      fseek(log, (long)floor(size * i), SEEK_SET);
+    } else {
+      rewind(log);
+    }
+
+    current_pos = ftell(log);
 
     /* Stop search if file position reaches beginning of last file position */
-    while (ftell(log) <= (previous_pos + strlen(upgrade_string)) &&
-           fgets(line, BUF_SIZE, log) != NULL) {
+    while (ftell(log) < previous_pos && fgets(line, BUF_SIZE, log) != NULL)
       findStr(line, result, upgrade_string);
-    }
+
+    previous_pos = current_pos;
   }
 }
