@@ -43,7 +43,7 @@ void findStr(char *line, char *result, const char *upgrade_string) {
   }
 }
 
-/* Search file bottom up in 1/5 chunks for last update in log */
+/* Search file bottom up in 20% chunks for last update in log */
 void lastUpgradeString(char *result, FILE *log, const char *upgrade_string) {
   char line[BUF_SIZE] = "";
   long size = 0;
@@ -55,10 +55,10 @@ void lastUpgradeString(char *result, FILE *log, const char *upgrade_string) {
 
   previous_pos = size;
 
-  /* Go through file in 10% chunks, stop if 'update_command' is found */
-  for (float i = 0.9; result[0] == '\0' && i >= 0.0; i -= 0.1) {
+  /* Go through file in 20% chunks, stop if 'update_command' is found */
+  for (float i = 0.8; result[0] == '\0' && i >= 0.0; i -= 0.2) {
     long current_pos = 0;
-    if (i > 1.0) {
+    if (i > 2.0) {
       fseek(log, (long)floor(size * i), SEEK_SET);
     } else {
       rewind(log);
