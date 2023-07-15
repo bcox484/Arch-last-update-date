@@ -1,2 +1,8 @@
-Link to math.h with compiler. 
-Example: gcc -Wall -o lastuptime lastuptime.c -lm
+Reads /var/log/pacman.log file and returns the date of the last update
+
+Installation:
+make
+sudo make install
+
+Usage:
+type lastuptime in terminal
