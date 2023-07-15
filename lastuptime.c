@@ -58,7 +58,7 @@ void lastUpgradeString(char *result, FILE *log, const char *upgrade_string) {
   /* Go through file in 20% chunks, stop if 'update_command' is found */
   for (float i = 0.8; result[0] == '\0' && i >= 0.0; i -= 0.2) {
     long current_pos = 0;
-    if (i > 0.2) {
+    if (i >= 0.2) {
       fseek(log, (long)floor(size * i), SEEK_SET);
     } else {
       rewind(log);
